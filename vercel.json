@@ -8,8 +8,12 @@
     ],
     "routes": [
       {
-        "src": "/(.*)",
-        "dest": "server.js"
+        "src": "/api/rsi/(.*)",
+        "dest": "/api/rsi/$1"
+      },
+      {
+        "src": "/api/dividendInfo/(.*)",
+        "dest": "/api/dividendInfo/$1"
       }
     ]
   }
