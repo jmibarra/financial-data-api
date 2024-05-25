@@ -6,6 +6,16 @@ const fetchStockData = require('./getDividendInfo');
 const app = express();
 const port = 3000;
 
+app.get('/', async (req, res) => {
+    //Devuelvo un mensaje "API DE FINANZAS
+    //Abajo listo links a las rutas disponibles
+    res.send('API DE FINANZAS');
+    res.end();
+
+
+
+});
+
 app.get('/api/rsi/:symbol', async (req, res) => {
     const symbol = req.params.symbol;
     const rsi = await calculateRSI(symbol);
