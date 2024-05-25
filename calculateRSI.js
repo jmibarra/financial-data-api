@@ -10,6 +10,7 @@ const fetchStockData = async (symbol) => {
         const result = await yahooFinance.historical(symbol, { period1, period2 });
         if (!result || result.length === 0) {
             throw new Error('No data found');
+            return null
         }
         return result;
     } catch (error) {

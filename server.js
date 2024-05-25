@@ -6,42 +6,37 @@ const fetchStockData = require('./getDividendInfo');
 const app = express();
 const port = 3000;
 
-app.get('/', async (req, res) => {
-    //Devuelvo un mensaje "API DE FINANZAS
-    //Abajo listo links a las rutas disponibles
-    res.send('API DE FINANZAS');
-    res.end();
-
-
-
-});
-
 app.get('/api/rsi/:symbol', async (req, res) => {
-    const symbol = req.params.symbol;
-    const rsi = await calculateRSI(symbol);
+    try {
+        const symbol = req.params.symbol;
+        const rsi = await calculateRSI(symbol);
 
-    res.status(200).send(rsi);
-
-    if (rsi === null) {
-        res.status(500).send('Error calculating RSI');
-    } else {
-        const data = { symbol, rsi };
-        fs.writeFileSync('data.json', JSON.stringify(data, null, 2));
-        res.json(data);
+        if (rsi === null) {
+            res.status(500).send('Error calculating RSI');
+        } else {
+            const data = { symbol, rsi };
+            res.json(data);
+        }
+    } catch (error) {
+        console.error('Error in /api/rsi/:symbol:', error);
+        res.status(500).send('Internal Server Error');
     }
 });
 
 app.get('/api/dividendInfo/:symbol', async (req, res) => {
-    const symbol = req.params.symbol;
-    const dividendInfo = await fetchStockData(symbol);
+    try {
+        const symbol = req.params.symbol;
+        const dividendInfo = await fetchStockData(symbol);
 
-    res.status(200).send(dividendInfo);
-
-    if (dividendInfo === null) {
-        res.status(500).send('Error getting dividend INFO');
-    } else {
-        const data = { symbol, dividendInfo };
-        res.json(data);
+        if (dividendInfo === null) {
+            res.status(500).send('Error getting dividend INFO');
+        } else {
+            const data = { symbol, dividendInfo };
+            res.json(data);
+        }
+    } catch (error) {
+        console.error('Error in /api/dividendInfo/:symbol:', error);
+        res.status(500).send('Internal Server Error');
     }
 });
 
