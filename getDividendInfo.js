@@ -16,8 +16,8 @@ const fetchStockData = async (symbol) => {
         }
 
         // Extraer las fechas
-        let dividendDateFormatted = format(new Date(result.dividendDate), 'dd/MM/yyyy');
-        let exDividendDateFormatted = format(new Date(calendarEventsResult.calendarEvents.exDividendDate), 'dd/MM/yyyy');
+        let dividendDateFormatted = result.dividendDate ? format(new Date(result.dividendDate), 'dd/MM/yyyy') : "";
+        let exDividendDateFormatted = calendarEventsResult.calendarEvents.exDividendDate ? format(new Date(calendarEventsResult.calendarEvents.exDividendDate), 'dd/MM/yyyy') : "";
 
         // Extraer otros datos
         const { dividendYield, dividendRate } = result;
