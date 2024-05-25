@@ -34,7 +34,7 @@ app.get('/api/dividendInfo/:symbol', async (req, res) => {
         const dividendInfo = await fetchStockData(symbol);
 
         if (dividendInfo === null) {
-            res.status(500).send('Error getting dividend INFO');
+            res.status(404).send('No se encuentra información del dividendo para este simbolo ' + symbol);
         } else {
             const data = { symbol, dividendInfo };
             res.json(data);
