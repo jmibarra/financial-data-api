@@ -5,9 +5,6 @@ const fetchStockData = async (symbol) => {
     try {
         // Primera llamada para obtener los datos principales
         const result = await yahooFinance.quote(symbol);
-        if (!result || result.length === 0) {
-            throw new Error('No data found');
-        }
 
         // Segunda llamada para obtener los eventos del calendario
         const calendarEventsResult = await yahooFinance.quoteSummary(symbol, { modules: ["calendarEvents"] });
