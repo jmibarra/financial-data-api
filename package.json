@@ -3,13 +3,12 @@
     "version": "1.0.0",
     "main": "server.js",
     "scripts": {
-      "start": "node server.js"
+        "start": "node server.js"
     },
     "dependencies": {
-      "express": "^4.17.1",
-      "fs": "0.0.1-security",
-      "date-fns": "^2.21.3",
-      "yahoo-finance2": "^1.0.0"
+        "date-fns": "^2.21.3",
+        "express": "^4.17.1",
+        "fs": "0.0.1-security",
+        "yahoo-finance2": "^1.14.8"
     }
-  }
-  
+}

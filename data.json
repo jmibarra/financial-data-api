@@ -1,4 +1,9 @@
 {
-  "symbol": "AAPL",
-  "rsi": 63.639475524894245
+  "symbol": "HSY",
+  "dividendInfo": {
+    "dividendDate": "13/06/2024",
+    "dividendYield": 2.78,
+    "dividendRate": 5.48,
+    "exDividendDate": "15/05/2024"
+  }
 }
