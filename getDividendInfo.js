@@ -11,9 +11,6 @@ const fetchStockData = async (symbol) => {
 
         // Segunda llamada para obtener los eventos del calendario
         const calendarEventsResult = await yahooFinance.quoteSummary(symbol, { modules: ["calendarEvents"] });
-        if (!calendarEventsResult || !calendarEventsResult.calendarEvents) {
-            throw new Error('No calendar events found');
-        }
 
         // Extraer las fechas
         let dividendDateFormatted = result.dividendDate ? format(new Date(result.dividendDate), 'dd/MM/yyyy') : "";
