@@ -1,6 +1,7 @@
 const express = require('express');
 const fs = require('fs');
 const calculateRSI = require('./calculateRSI');
+const fetchStockData = require('./getDividendInfo');
 
 const app = express();
 const port = 3000;
@@ -13,6 +14,19 @@ app.get('/api/rsi/:symbol', async (req, res) => {
         res.status(500).send('Error calculating RSI');
     } else {
         const data = { symbol, rsi };
+        fs.writeFileSync('data.json', JSON.stringify(data, null, 2));
+        res.json(data);
+    }
+});
+
+app.get('/api/dividendInfo/:symbol', async (req, res) => {
+    const symbol = req.params.symbol;
+    const dividendInfo = await fetchStockData(symbol);
+
+    if (dividendInfo === null) {
+        res.status(500).send('Error getting dividend INFO');
+    } else {
+        const data = { symbol, dividendInfo };
         fs.writeFileSync('data.json', JSON.stringify(data, null, 2));
         res.json(data);
     }
