@@ -6,6 +6,11 @@ const fetchStockData = require('./getDividendInfo');
 const app = express();
 const port = 3000;
 
+app.get('/', (req, res) => {
+    //Devuelvo un texto que diga API FINANZAS
+    res.send('API FINANZAS');
+})
+
 app.get('/api/rsi/:symbol', async (req, res) => {
     try {
         const symbol = req.params.symbol;
