@@ -1,5 +1,5 @@
 const yahooFinance = require('yahoo-finance2').default;
-const { subMonths, format } = require('date-fns');
+const { format } = require('date-fns');
 
 const fetchStockData = async (symbol) => {
     try {

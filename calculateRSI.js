@@ -20,6 +20,7 @@ const fetchStockData = async (symbol) => {
 
 const calculateFinalRSI = async (symbol) => {
     const rawData = await fetchStockData(symbol);
+
     if (!rawData) return null;
 
     const period = 14; // Usualmente se usa un periodo de 14 días
