@@ -9,7 +9,6 @@
         "axios": "^1.7.2",
         "date-fns": "^2.21.3",
         "express": "^4.17.1",
-        "finviz": "^0.0.3",
         "fs": "0.0.1-security",
         "puppeteer": "^22.10.0",
         "puppeteer-core": "^22.10.0",
