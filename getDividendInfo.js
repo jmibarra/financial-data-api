@@ -10,14 +10,20 @@ const fetchStockData = async (symbol) => {
         const calendarEventsResult = await yahooFinance.quoteSummary(symbol, { modules: ["calendarEvents"] });
 
         // Extraer las fechas
-        let dividendDateFormatted = calendarEventsResult.calendarEvents.dividendDate ? format(new Date(calendarEventsResult.calendarEvents.dividendDate), 'dd/MM/yyyy') : "";
-        let exDividendDateFormatted = calendarEventsResult.calendarEvents.exDividendDate ? format(new Date(calendarEventsResult.calendarEvents.exDividendDate), 'dd/MM/yyyy') : "";
+        let dividendDateFormatted = calendarEventsResult?.calendarEvents?.dividendDate ? format(new Date(calendarEventsResult.calendarEvents.dividendDate), 'dd/MM/yyyy') : "";
+        let exDividendDateFormatted = calendarEventsResult?.calendarEvents?.exDividendDate ? format(new Date(calendarEventsResult.calendarEvents.exDividendDate), 'dd/MM/yyyy') : "";
 
-        // Extraer otros datos
-        const { dividendYield, dividendRate } = result;
+        // Extraer otros datos con verificación
+        const dividendYield = result?.dividendYield ?? 0;
+        const dividendRate = result?.dividendRate ?? 0;
 
         // Devolver todos los datos requeridos
-        return { dividendDate: dividendDateFormatted, dividendYield, dividendRate, exDividendDate: exDividendDateFormatted };
+        return {
+            dividendDate: dividendDateFormatted,
+            dividendYield,
+            dividendRate,
+            exDividendDate: exDividendDateFormatted
+        };
 
     } catch (error) {
         console.error('Error fetching stock data:', error);
