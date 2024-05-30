@@ -2,6 +2,7 @@ const express = require('express');
 const fs = require('fs');
 const calculateRSI = require('./calculateRSI');
 const fetchStockData = require('./getDividendInfo');
+const FinvizDataService = require('./finvizDataService');
 
 const app = express();
 const port = 3000;
@@ -41,6 +42,45 @@ app.get('/api/dividendInfo/:symbol', async (req, res) => {
         }
     } catch (error) {
         console.error('Error in /api/dividendInfo/:symbol:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+app.get('/api/finvizdata/:symbol', async (req, res) => {
+
+    const symbol = req.params.symbol;
+    const finvizDataService = new FinvizDataService(symbol);
+    try {
+
+        const finvizData = await finvizDataService.fetchFinvizData();
+
+        if (finvizData === null) {
+            res.status(404).send('No se encuentra información de finviz para este simbolo ' + symbol);
+        } else {
+            const data = { symbol, finvizData };
+            res.json(data);
+        }
+    } catch (error) {
+        console.error('Error in /api/finvizdata/:symbol:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+app.get('/api/finvizdata/formatedData/:symbol', async (req, res) => {
+    const symbol = req.params.symbol;
+    const finvizDataService = new FinvizDataService(symbol);
+    try {
+        const finvizData = await finvizDataService.fetchFormatedFinvizData(symbol);
+
+        if (finvizData === null) {
+            res.status(404).send('No se encuentra información de finviz para este simbolo ' + symbol);
+        } else {
+
+            const data = { symbol, finvizData };
+            res.json(data);
+        }
+    } catch (error) {
+        console.error('Error in /api/finvizdata/:symbol:', error);
         res.status(500).send('Internal Server Error');
     }
 });

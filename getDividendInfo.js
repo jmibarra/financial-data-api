@@ -4,15 +4,18 @@ const { format } = require('date-fns');
 const fetchStockData = async (symbol) => {
     try {
         // Primera llamada para obtener los datos principales
-        const result = await yahooFinance.quote(symbol);
+        const result = await yahooFinance.chart(symbol);
 
         // Segunda llamada para obtener los eventos del calendario
-        const calendarEventsResult = await yahooFinance.quoteSummary(symbol, { modules: ["calendarEvents"] });
+        //const calendarEventsResult = await yahooFinance.quoteSummary(symbol, { modules: ["calendarEvents"] });
 
         // Extraer las fechas
-        let dividendDateFormatted = calendarEventsResult?.calendarEvents?.dividendDate ? format(new Date(calendarEventsResult.calendarEvents.dividendDate), 'dd/MM/yyyy') : "";
-        let exDividendDateFormatted = calendarEventsResult?.calendarEvents?.exDividendDate ? format(new Date(calendarEventsResult.calendarEvents.exDividendDate), 'dd/MM/yyyy') : "";
+        //let dividendDateFormatted = calendarEventsResult?.calendarEvents?.dividendDate ? format(new Date(calendarEventsResult.calendarEvents.dividendDate), 'dd/MM/yyyy') : "";
+        //let exDividendDateFormatted = calendarEventsResult?.calendarEvents?.exDividendDate ? format(new Date(calendarEventsResult.calendarEvents.exDividendDate), 'dd/MM/yyyy') : "";
 
+        console.log(result)
+
+        /*
         // Extraer otros datos con verificación
         const dividendYield = result?.dividendYield ?? 0;
         const dividendRate = result?.dividendRate ?? 0;
@@ -23,7 +26,7 @@ const fetchStockData = async (symbol) => {
             dividendYield,
             dividendRate,
             exDividendDate: exDividendDateFormatted
-        };
+        }; */
 
     } catch (error) {
         console.error('Error fetching stock data:', error);
